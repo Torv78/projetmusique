@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Album 
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy:"NONE")]
+    #[ORM\GeneratedValue(strategy:"IDENTITY")]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -153,7 +153,7 @@ class Album
     public function removeStyle(Style $style): static
     {
         if ($this->styles->removeElement($style)) {
-            $style->removeAlbulm($this);
+            $style->removeAlbum($this);
         }
 
         return $this;
