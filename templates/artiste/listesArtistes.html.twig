@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des artistes{% endblock %}
+
+{% block body %}
+    <h1 class="pt-2 text-center">Liste des Artistes</h1> <!-- Correction de la balise -->
+    <hr>
+    <div class="row pt-2">
+        {% for artiste in lesArtistes %}
+            {% set nbalbums = artiste.albums|length %} <!-- Utilisation correcte du nom de la variable -->
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                <div class="card mb-3">
+                    <h3 class="card-header"> <a href="{{path('ficheartiste',{'id':artiste.id })}}">{{ artiste.nom }}</a></h3>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="" class="badge badge-success color">{{ nbalbums }}{% if nbalbums > 1 %} albums{% else %} album{% endif %}</a> <!-- Correction des noms et texte -->
+                        </h5>
+                    </div>
+                    <img class="avatar mx-auto d-block" style="height: auto; width: 200px; display: block;" src="{{ artiste.image }}" alt="card image"> <!-- Correction du style de l'image -->
+                    <div class="card-body">
+                        <p class="card-text">{{ artiste.description|slice(0,200)|raw }} ...</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            {% if artiste.type == '0' %} artiste solo {% else %} Groupe {% endif %} <!-- Vérification du type d'artiste -->
+                        </li>
+                        <li class="list-group-item"> <a href="{{ artiste.site }}">son site web </a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

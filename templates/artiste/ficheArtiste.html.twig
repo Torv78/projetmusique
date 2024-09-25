@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche artistes
+{% endblock %}
+
+{% block body %}
+	<h1 class="pt-2 text-center">Fiche de l'arstite</h1>
+	<!-- Correction de la balise -->
+	<hr>
+	<div class="row pt-2">
+		{% set nbalbums = leartiste.albums|length %}
+		<!-- Utilisation correcte du nom de la variable -->
+		
+			<div class="card mb-3">
+				<h3 class="card-header">{{ leartiste.nom }}</h3>
+				<div class="row">
+					<div class="col-3 d-flex align-items-center mx-auto"><img class="avatar mx-auto d-block" style="height: auto; width: 200px; display: block;" src="{{ leartiste.image }}" alt="card image"></div>
+
+					<div class="col">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="" class="badge badge-success color">{{ nbalbums }}
+									{% if nbalbums > 1 %}
+										albums
+									{% else %}
+										album
+									{% endif %}
+								</a>
+								
+							</h5>
+						</div>
+						<!-- Correction du style de l'image -->
+						<div class="card-body">
+							<p class="card-text">{{ leartiste.description|raw }}
+								</p>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								{% if leartiste.type == '0' %}
+									artiste solo
+								{% else %}
+									Groupe
+								{% endif %}
+								<!-- Vérification du type d'artiste -->
+							</li>
+							<li class="list-group-item">
+								<a href="{{ leartiste.site }}">son site web
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+	</div>
+
+<table class="table table-hover mx-auto">
+  <thead>
+    <tr>
+      <th scope="col-3">photo</th>
+      <th scope="col-4">nom</th>
+      <th scope="col-1">date</th>
+      <th scope="col-3">styles</th>
+      <th scope="col-1">morceaux</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for lealbum in leartiste.albums %}
+     <tr class="table-active">
+      <th> <img class="miniature" src="{{lealbum.image}}" alt=""></th>
+      <td scop="row"> <a href="{{path('fichealbum',{'id':lealbum.id})}}">{{lealbum.nom}}</a> </td>
+      <td>{{lealbum.date}}</td>
+      <td></td>
+      <td>{{lealbum.morceaux|length}}</td>
+    </tr>
+  {% endfor %}
+   
+    
+  </tbody>
+</table>
+
+{% endblock %}

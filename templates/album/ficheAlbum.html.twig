@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche albums
+{% endblock %}
+
+{% block body %}
+	<h1 class="pt-2 text-center">Fiche de l'arstite</h1>
+	<!-- Correction de la balise -->
+	<hr>
+	
+		<!-- Utilisation correcte du nom de la variable -->
+		
+			<div class="card mb-3">
+				<h3 class="card-header">{{ lealbum.nom }}</h3>
+				<div class="row">
+					<div class="col-3 d-flex align-items-center mx-auto"><img class="avatar mx-auto d-block" style="height: auto; width: 200px; display: block;" src="{{ lealbum.image }}" alt="card image"></div>
+
+					<div class="col">
+						<div class="card-body">
+							<h5 class="card-title">
+								<a href="{{path('ficheartiste',{'id':lealbum.artiste.id})}}" class="badge badge-success color">{{lealbum.artiste.nom}}
+								</a>
+								
+							</h5>
+					
+						<!-- Correction du style de l'image -->
+					
+							<p class="card-text">{{ lealbum.date }}	</p>
+							</div>
+								
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+							{% for style in lealbum.styles %}
+                           <span class="badge" style="bacground-color: {{style.couleur}};">{{style.nom}} </span>
+                            
+                           {% endfor %}
+							</li>
+							 <li class="list-group-item"> 
+							 {% set nb = lealbum.morceaux|length %}
+                        {{nb}}{% if nb>1 %} morceaux {% else %} morceau {% endif %}
+                        
+                        </li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+	
+
+<table class="table table-hover mx-auto">
+  <thead>
+    <tr>
+      <th scope="col-3">piste</th>
+      <th scope="col-4">Titre</th>
+      <th scope="col-1">durée</th>
+      <th scope="col-3">note</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for morceau in lealbum.morceaux %}
+     <tr class="table-active">
+      <td scope="row"></td>
+      <td>{{morceau.titre}}</td>
+      <td>{{morceau.duree}}</td>
+    </tr>
+  {% endfor %}
+   
+    
+  </tbody>
+</table>
+
+{% endblock %}
