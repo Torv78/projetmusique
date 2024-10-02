@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <title>{% block title %}Musique{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"/>
-    
+    <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.css">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <script src="https://kit.fontawesome.com/65cf8a79f5.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.css">
     {% endblock %}
 </head>
 <body>
@@ -24,14 +26,19 @@
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion artiste</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('app_artistes') }}">Liste des artistes</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Ajouter un artiste</a>
+                            
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Album</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('app_albums') }}">Liste des albums</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('app_admin_artistes') }}">gestion des artistes</a>
                         </div>
                     </li>
                 </ul>
