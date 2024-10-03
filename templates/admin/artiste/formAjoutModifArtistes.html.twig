@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Artistes{% endblock %}
+
+{% block body %}
+
+<h1 class="pt-2 text-center">
+{% if (app.request.attributes.get('_route')=="app_admin_artiste_ajout") %}
+    ajout
+    {% else %}
+    modification
+{% endif %}
+ d'un Artistes</h1> <!-- Correction de la balise -->
+{{form_start(formArtiste)}}
+{{form_row(formArtiste.nom)}}
+{{form_row(formArtiste.description)}}
+<div class="row">
+    <div class="col">{{form_row(formArtiste.site)}}</div>
+    <div class="col">{{form_row(formArtiste.type)}}</div>
+</div>
+{{form_row(formArtiste.image)}}
+
+
+
+<input type="submit" , class="btn btn-outline-success" value=
+{% if (app.request.attributes.get('_route')=="app_admin_artiste_ajout") %}
+    valider
+    {% else %}
+    modifier
+{% endif %}>
+<a href="{{path("app_admin_artistes")}}" class="btn btn-outline-warning">annuler</a>
+{{ form_end(formArtiste)}}
+{% endblock %}
