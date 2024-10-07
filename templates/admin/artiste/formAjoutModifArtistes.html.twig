@@ -11,7 +11,7 @@
     modification
 {% endif %}
  d'un Artistes</h1> <!-- Correction de la balise -->
-{{form_start(formArtiste)}}
+{{form_start(formArtiste,{'attr':{'novalidate':'novalidate'}})}}
 {{form_row(formArtiste.nom)}}
 {{form_row(formArtiste.description)}}
 <div class="row">

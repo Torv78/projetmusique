@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Style;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Artiste;
+use App\Repository\StyleRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Style>
@@ -19,6 +21,53 @@ class StyleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Style::class);
+    }
+
+
+    public function add(Style $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Style $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    /**
+     * @return Style[] Returns an array of Artiste objects
+     */
+    public function listeStyleComplete(): array
+    {
+        return $this->createQueryBuilder('')
+            ->select('s','alb')
+            ->leftJoin('s.albums','alv')
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+     /**
+     * @return Query Returns an array of Artiste objects
+     */
+    public function listeArtistesCompletePaginee(): Query
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s','alb')
+            ->leftJoin('s.albums','alb')
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+        ;
     }
 
 //    /**
