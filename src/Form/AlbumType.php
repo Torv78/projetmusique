@@ -31,7 +31,10 @@ class AlbumType extends AbstractType
             ])
           
             ->add('artiste', EntityType::class,[
-                'class'=>Artiste::class, 
+                'class'=>Artiste::class,
+                'query_builder'=>function(ArtisteRepository $repo){
+                    return $repos->listeAttistesimple();
+                }, 
                 'choice_label'=>'nom',
                 'required' => false,
                 'label'=> "nom de l'artiste"
