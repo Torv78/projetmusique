@@ -17,7 +17,7 @@ class AlbumController extends AbstractController
     {
         
         $lesalbums = $paginator->paginate(
-            $repo->listeAlbumsComplete(), /* query NOT result */
+            $repo->listeAlbumsCompletePaginee(), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             9 /*limit per page*/
         );

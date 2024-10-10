@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Style;
 use App\Entity\Artiste;
+use Doctrine\ORM\Query;
 use App\Repository\StyleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -60,7 +61,7 @@ class StyleRepository extends ServiceEntityRepository
      /**
      * @return Query Returns an array of Artiste objects
      */
-    public function listeArtistesCompletePaginee(): Query
+    public function listestyleCompletePaginee(): Query
     {
         return $this->createQueryBuilder('s')
             ->select('s','alb')

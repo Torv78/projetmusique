@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}gestion Styles{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">gestion des style</h1> <!-- Correction de la balise -->
+<a href="{{path("app_admin_style_ajout")}}" class="btn btn-outline-success">ajoutez un style</a>
+    <hr>
+    <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col-3">couleur</th>
+      <th scope="col-5">nom</th>
+      <th scope="col-2"></th>
+      <th scope="col-2">actions</th>
+    </tr>
+  </thead>
+   <tbody>
+{% for style in styles %}
+	{% set nbalbums = style.albums|length %}
+	
+	
+		<tr  class="table-dark"> 
+            <td class="col-3"><span class="badge" style="display: inline-block; width:250px; height:15px; background-color:{{ style.couleur }}"></span></td>
+			<td class="col-5">{{ style.nom }}</td>
+			<td class="col-5">
+             <span class="align-self-center badge badge-outline-success">{{nbalbums}}{% if nbalbums > 1 %} albums{% else %} album{% endif %}</span>
+            </td>
+			<td class="col-4">
+            <a href="{{path("app_admin_style_modif",{'id': style.id})}}" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+            <a  class="btn btn-outline-danger" 
+            data-bs-toggle="modal" 
+            data-bs-target="#modalsimple" 
+            data-titre="suppresion d'un style" 
+            data-message="voulez vous vraiment supprimer le style : {{style.nom}}"
+            data-libellebouton="supprimer"
+            data-lien="{{path('app_admin_style_supp',{'id': style.id})}}">
+            <i class="fa-solid fa-trash"></i></a>
+            </td>
+		</tr>
+	{% endfor %}
+
+        </tbody>
+</table>
+<div class="navigation mx-auto">
+    {{ knp_pagination_render(styles) }}
+</div>
+    </div>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'include/_modal.html.twig' %}
+{% endblock %}

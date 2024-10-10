@@ -3,12 +3,23 @@
 namespace App\Entity;
 
 use App\Entity\Album;
+use App\Entity\Style;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StyleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: StyleRepository::class)]
+#[UniqueEntity(
+    fields: ['nom'],
+    message: 'le nom est deja utiliser',
+)]
+#[UniqueEntity(
+    fields: ['couleur'],
+    message: 'la couleur est deja utiliser',
+)]
 class Style
 {
     #[ORM\Id]
@@ -17,9 +28,16 @@ class Style
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'le nom doit comporter au minimum {{ limit }}',
+        maxMessage: 'le nom doit comporter au maximum{{ limit }}',
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message:"la couleur est obligatoire")]
     private ?string $couleur = null;
 
     #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'styles')]

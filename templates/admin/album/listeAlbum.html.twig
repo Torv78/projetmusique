@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}gestion album{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">gestion des album</h1> <!-- Correction de la balise -->
+<a href="{{path("app_admin_album_ajout")}}" class="btn btn-outline-success">ajoutez un album</a>
+    <hr>
+    <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col-1"></th>
+      <th scope="col-3">nom</th>
+      <th scope="col-1">Année</th>
+      <th scope="col-2">Artiste</th>
+      <th scope="col-1">Styles</th>
+      <th scope="col-2">morceaux</th>
+      <th scope="col-2">action</th>
+    </tr>
+  </thead>
+   <tbody>
+{% for album in albums %}
+	{% set nbMorceaux = album.Morceaux|length %}
+	
+	
+		<tr  class="table-dark"> 
+            <td class="col-1"><img class="avatar mx-auto d-block" style="height: auto; width: 50px; display: block;" src="{{ album.image }}" alt="card image"> </td>
+			<td class="col-3">{{ album.nom }}</td>
+            <td class="col-1">{{ album.date }}</td>
+            <td class="col-1">{{ album.artiste.nom }}</td>
+			<td class="col-1"> 
+            {% for style in album.styles %}
+                           <span class="badge" style="bacground-color: {{style.couleur}};">{{style.nom}} </span>
+                            
+            {% endfor %} 
+            </td>
+            <td class="col-2"><span class="align-self-center badge badge-outline-success">{{nbMorceaux}}{% if nbMorceaux > 1 %} Morceaux{% else %} Morceau{% endif %}</span></td>
+            
+           
+            </td>
+			<td class="col-2">
+            <a href="{{path("app_admin_album_modif",{'id': album.id})}}" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+            <a  class="btn btn-outline-danger" 
+            data-bs-toggle="modal" 
+            data-bs-target="#modalsimple" 
+            data-titre="suppresion d'un album" 
+            data-message="voulez vous vraiment supprimer l'album : {{album.nom}}"
+            data-libellebouton="supprimer"
+            data-lien="{{path('app_admin_album_supp',{'id': album.id})}}"><i class="fa-solid fa-trash"></i></a>
+            </td>
+		</tr>
+	{% endfor %}
+
+        </tbody>
+</table>
+<div class="navigation mx-auto">
+    {{ knp_pagination_render(albums) }}
+</div>
+    </div>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'include/_modal.html.twig' %}
+{% endblock %}
